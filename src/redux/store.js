@@ -1,19 +1,9 @@
-import {legacy_createStore} from 'redux'
+import { legacy_createStore, applyMiddleware} from "redux";
+import { rootReducer } from "./Reducer.js";
+import { decrementCounter, incrementCounter } from "./ActionCreators.js";
+import thunk from "redux-thunk"
 
-let initialState={
-    count:0,
-}
+const store=legacy_createStore(rootReducer,applyMiddleware(thunk));
 
-let countReducer=(state=initialState,action)=>{
-    switch(action.type){
-        case 'INCREMENT': return {...state,count:state.count+1}
-        case 'DECREMENT': return {...state,count:state.count-1}
-        default: return state
-    }
-}
-
-const store=legacy_createStore(countReducer);
-
-// store.subscribe(()=>console.log("updated value",store.getState()));
 
 export default store

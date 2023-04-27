@@ -1,19 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './../styles/App.css';
-import { useDispatch, useSelector } from "react-redux";
-
+import {useSelector, useDispatch} from "react-redux"
+import { incrementCounter,decrementCounter } from "../redux/ActionCreators";
 
 const App = () => {
-  const count=useSelector((state)=>state.count)
-  const dispatch=useDispatch();
-  return (
-    <div>
-        {/* Do not remove the main div */}
-        <h1>{count}</h1>
-        <button className="increment" onClick={()=>dispatch({type:"INCREMENT"})}>Increment</button>
-        <button className="decrement" onClick={()=>dispatch({type:"DECREMENT"})}>Decrement</button>
-    </div>
-  )
+  let dispatch=useDispatch();
+  const count=useSelector(state=>state.count.count);
+  return <div className="App">
+    <button onClick={()=>dispatch(decrementCounter())}>Decrement</button>
+    {count}
+    <button onClick={()=>dispatch(incrementCounter())}>Increment</button>
+  </div>
 }
 
 export default App
